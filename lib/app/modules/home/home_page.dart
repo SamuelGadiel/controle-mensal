@@ -1,22 +1,28 @@
+import 'package:controle_mensal/app/modules/home/home_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class HomePage extends StatefulWidget {
-  final String title;
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final bloc = Modular.get<HomeBloc>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Home"),
       ),
-      body: Column(
-        children: <Widget>[],
+      body: StreamBuilder(
+        stream: bloc.fetchStream.stream,
+        initialData: bloc.getData(),
+        builder: (context, snapshot) {
+          return SizedBox();
+        },
       ),
     );
   }
